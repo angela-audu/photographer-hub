@@ -29,13 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
-app.use(helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", 'maxcdn.bootstrapcdn.com', 'bootswatch.com', 'kit.fontawesome.com', 'code.jquery.com', 'cdn.jsdelivr.net', 'stackpath.bootstrapcdn.com'],
-    imgSrc:['images.pexels.com']
-    }
-  }));
+
   app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
 
 
