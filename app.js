@@ -49,6 +49,34 @@ app.post("/contact", (req, res) => {
         .catch(err => {
             res.status(400).send("Unable to save to database");
         });
+        if (
+            req.body.captcha === undefined ||
+            req.body.captcha ==='' ||
+            req.body.captcha === null
+        ){
+            return res.json ({"success": false, "msg": "please select captcha"});
+        }
+
+//secret key
+const secretKey = '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI';
+
+//verify url
+const verifyUrl= `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+//make request to verify url
+request(verifyUrl, (err, response, body) => {
+body = JSON.parse(body);
+
+//if not successful
+if (body.success !==undefined && !body.success){
+    return res.json ({"success": false, "msg": "failed captcha verification"});
+}
+
+// if success
+return res.json ({"success": true, "msg": "captcha passed"});
+
+});
+
 });
 
 //Bodyparser
