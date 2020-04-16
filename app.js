@@ -53,7 +53,8 @@ app.post("/contact", (req, res) => {
             req.body.captcha === undefined ||
             req.body.captcha ==='' ||
             req.body.captcha === null
-        ){
+        )
+        {
             return res.json ({"success": false, "msg": "please select captcha"});
         }
 
@@ -73,7 +74,7 @@ if (body.success !==undefined && !body.success){
 }
 
 // if success
-return res.json ({"success": true, "msg": "captcha passed"});
+return res.json ({"success": true, "msg": "your message has been sent"});
 
 });
 
