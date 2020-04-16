@@ -42,6 +42,15 @@ var Contact = mongoose.model("Contact", ContactSchema);
 
 app.post("/contact", (req, res) => {
     var myData = new Contact(req.body);
+     if (
+        req.body.captcha === undefined ||
+        req.body.captcha ==='' ||
+        req.body.captcha === null
+    )
+    {
+        return res.json ({"success": false, "msg": "please select captcha"});
+    }
+    
     myData.save()
         .then(item => {
             res.send("your message has been sent");
@@ -49,14 +58,7 @@ app.post("/contact", (req, res) => {
         .catch(err => {
             res.status(400).send("Unable to save to database");
         });
-        if (
-            req.body.captcha === undefined ||
-            req.body.captcha ==='' ||
-            req.body.captcha === null
-        )
-        {
-            return res.json ({"success": false, "msg": "please select captcha"});
-        }
+        
 
 //secret key
 const secretKey = '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI';
