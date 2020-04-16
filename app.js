@@ -42,14 +42,6 @@ var Contact = mongoose.model("Contact", ContactSchema);
 
 app.post("/contact", (req, res) => {
     var myData = new Contact(req.body);
-     if (
-        req.body.captcha === undefined ||
-        req.body.captcha ==='' ||
-        req.body.captcha === null
-    )
-    {
-        return res.json ({"success": false, "msg": "please select captcha"});
-    }
     
     myData.save()
         .then(item => {
