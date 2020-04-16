@@ -34,13 +34,7 @@ app.set('view engine', 'ejs');
 app.get('/', recaptcha.middleware.render, function(req, res){
     res.render('login', { captcha:res.recaptcha });
   });
-  app.post('/', recaptcha.middleware.verify, function(req, res){
-    if (!req.recaptcha.error) { wrong
-      // success code
-    } else {right
-      // error code
-    }
-  });
+
 mongoose.Promise = global.Promise;
 mongoose.connect
 var ContactSchema = new mongoose.Schema({
