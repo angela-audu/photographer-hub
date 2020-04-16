@@ -7,9 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const app = express();
-var Recaptcha = require('express-recaptcha').RecaptchaV3;
 //import Recaptcha from 'express-recaptcha'
-var recaptcha = new Recaptcha('SITE_KEY', 'SECRET_KEY');
 //passport config
 require('./config/passport')(passport);
 
@@ -31,9 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
-app.get('/', recaptcha.middleware.render, function(req, res){
-    res.render('login', { captcha:res.recaptcha });
-  });
 
 mongoose.Promise = global.Promise;
 mongoose.connect
