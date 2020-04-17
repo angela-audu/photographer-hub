@@ -17,7 +17,7 @@ router.post ('/register', (req, res) => {
    let errors = [];
 
    // Check required fields
-   if(!name || !email || !password  || !password2){
+   if(!name || !email || !password  || !password2 ){
        errors.push({msg: 'Please fill in all fields'});
    }
 
@@ -41,7 +41,7 @@ router.post ('/register', (req, res) => {
 
    } else { 
        // Validation passed
-       User.findOne({ username: username})
+       User.findOne({ email: email})
        .then(user => {
            if(user) {
                //User exists
