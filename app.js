@@ -17,13 +17,7 @@ app.get('/contact', recaptcha.middleware.render, function(req, res){
     res.render('contact', { captcha:res.recaptcha });
   });
 
-  app.post('/contact', recaptcha.middleware.verify, function(req, res){
-    if (!req.recaptcha.error) {
-      // success code
-    } else {
-      // error code
-    }
-  });
+  
 //passport config
 require('./config/passport')(passport);
 
@@ -56,7 +50,7 @@ var ContactSchema = new mongoose.Schema({
 });
 var Contact = mongoose.model("Contact", ContactSchema);
 
-app.post("/contact", (req, res) => {
+app.post("/contact", recaptcha.middleware.verify,(req, res) => {
     var myData = new Contact(req.body);
     myData.save()
         .then(item => {
@@ -64,8 +58,13 @@ app.post("/contact", (req, res) => {
         })
         .catch(err => {
             res.status(400).send("Unable to save to database");
-        }); 
-});
+        });
+            if (!req.recaptcha.error) {
+              // success code
+            } else {
+              // error code
+            }
+          });
 
 //Bodyparser
 app.use(express.urlencoded({ extended: false}));
