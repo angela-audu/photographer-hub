@@ -13,10 +13,6 @@ var Recaptcha = require('express-recaptcha').RecaptchaV3;
 //import Recaptcha from 'express-recaptcha'
 var recaptcha = new Recaptcha('6LesMeoUAAAAAFQZGmX1YcXrQorCS6r6usZ5p7uC', '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI');
 
-app.get('/contact', recaptcha.middleware.render, function(req, res){
-    res.render('contact', { captcha:res.recaptcha });
-  });
-
   
 //passport config
 require('./config/passport')(passport);
