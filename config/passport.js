@@ -7,10 +7,10 @@ const User = require('../models/User');
 
 module.exports = function(passport){
     passport.use(
-        new LocalStrategy({ usernameField: 'username'}, (username, password,done) => {
+        new LocalStrategy({ emailField: 'email'}, (email, password,done) => {
 
             //match user
-            User.findOne({ username: username})
+            User.findOne({email: email})
             .then(user => {
                 if(!user) {
                     return done(null, false, { message: 'Login failed'});
