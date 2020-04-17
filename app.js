@@ -8,6 +8,22 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const app = express();
 //import Recaptcha from 'express-recaptcha'
+
+var Recaptcha = require('express-recaptcha').RecaptchaV3;
+//import Recaptcha from 'express-recaptcha'
+var recaptcha = new Recaptcha('6LesMeoUAAAAAFQZGmX1YcXrQorCS6r6usZ5p7uC', '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI');
+
+app.get('/contact', recaptcha.middleware.render, function(req, res){
+    res.render('contact', { captcha:res.recaptcha });
+  });
+
+  app.post('/contact', recaptcha.middleware.verify, function(req, res){
+    if (!req.recaptcha.error) {
+      // success code
+    } else {
+      // error code
+    }
+  });
 //passport config
 require('./config/passport')(passport);
 
@@ -48,42 +64,11 @@ app.post("/contact", (req, res) => {
         })
         .catch(err => {
             res.status(400).send("Unable to save to database");
-        });
-        if (
-            req.body.captcha === undefined ||
-            req.body.captcha ==='' ||
-            req.body.captcha === null
-        )
-        {
-            return res.json ({"success": false, "msg": "please select captcha"});
-        }
-
-//secret key
-const secretKey = '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI';
-
-//verify url
-const verifyUrl= `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-
-//make request to verify url
-request(verifyUrl, (err, response, body) => {
-body = JSON.parse(body);
-
-//if not successful
-if (body.success !==undefined && !body.success){
-    return res.json ({"success": false, "msg": "failed captcha verification"});
-}
-
-// if success
-return res.json ({"success": true, "msg": "your message has been sent"});
-
-});
-
+        }); 
 });
 
 //Bodyparser
 app.use(express.urlencoded({ extended: false}));
-
-
 
 // Express session
 app.use(session({
@@ -94,7 +79,8 @@ app.use(session({
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-    //Connect flash
+
+ //Connect flash
 app.use(flash());
 
 //Global Variables
