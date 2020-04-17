@@ -12,7 +12,7 @@ const app = express();
 require('./config/passport')(passport);
 
 //DB CONFIG
-const db = require('./config/keys').MongoURI;
+const db = require('./config/keys').mongoURI;
 
 //Connect to Mongo
 mongoose.connect(db, {useNewUrlParser: true })
