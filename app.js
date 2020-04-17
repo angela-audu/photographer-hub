@@ -7,12 +7,6 @@ const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const app = express();
-//import Recaptcha from 'express-recaptcha'
-
-var Recaptcha = require('express-recaptcha').RecaptchaV3;
-//import Recaptcha from 'express-recaptcha'
-var recaptcha = new Recaptcha('6LesMeoUAAAAAFQZGmX1YcXrQorCS6r6usZ5p7uC', '6LesMeoUAAAAAKhWsG2uoSrg-WKzFeK6szHo1dKI');
-
   
 //passport config
 require('./config/passport')(passport);
@@ -46,7 +40,7 @@ var ContactSchema = new mongoose.Schema({
 });
 var Contact = mongoose.model("Contact", ContactSchema);
 
-app.post("/contact", recaptcha.middleware.verify,(req, res) => {
+app.post("/contact",(req, res) => {
     var myData = new Contact(req.body);
     myData.save()
         .then(item => {
@@ -55,11 +49,7 @@ app.post("/contact", recaptcha.middleware.verify,(req, res) => {
         .catch(err => {
             res.status(400).send("Unable to save to database");
         });
-            if (!req.recaptcha.error) {
-              // success code
-            } else {
-              // error code
-            }
+          
           });
 
 //Bodyparser
