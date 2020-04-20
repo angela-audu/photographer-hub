@@ -1,5 +1,6 @@
 const express =require('express');
 const router = express.Router();
+const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 //User model
@@ -12,6 +13,7 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 //Register page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
 
+router.get('/forgotpswd', forwardAuthenticated, (req, res)=> res.render('forgotpswd'));
 //Register Handle
 router.post ('/register', (req, res) => {
    const { name, email, password, password2} = req.body;
@@ -26,11 +28,12 @@ router.post ('/register', (req, res) => {
    if(password !== password2) {
        errors.push({ msg: 'Password is not the same'});
    }
-
+   
    //Check password length
-   if(password.length <6){
-       errors.push({ msg: 'Password too short'});
-   }
+if(password.length <6){
+    errors.push({ msg: 'Password too short'});
+}
+   
    if(errors.length > 0) {
        res.render('register', {
            errors,
@@ -76,7 +79,10 @@ router.post ('/register', (req, res) => {
             })
             .catch(err => console.log(err));
         }))
-}   
+} 
+
+
+
 
 });
 }
@@ -91,6 +97,7 @@ router.post('/login', (req, res, next) => {
         failureFlash: true
     })(req, res, next);
 });
+
 
 // logout
 router.get('/logout', (req, res) => {

@@ -4,6 +4,7 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const {check, validationResult} = require ('express-validator');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
@@ -31,10 +32,10 @@ app.use(helmet());
 app.use(expressLayouts);
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
-
+//Connect flash
+app.use(flash());
 
 mongoose.Promise = global.Promise;
 mongoose.connect
@@ -46,16 +47,16 @@ var ContactSchema = new mongoose.Schema({
 });
 var Contact = mongoose.model("Contact", ContactSchema);
 
-app.post("/contact",(req, res) => {
+app.post("/contact",(req, res, next) => {
     var myData = new Contact(req.body);
     myData.save()
         .then(item => {
-            res.send("your message has been sent");
+                res.send('Message Sent');
         })
         .catch(err => {
             res.status(400).send("something went wrong");
         });
-          
+
 
           });
 
@@ -72,8 +73,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
- //Connect flash
-app.use(flash());
+ 
 
 //Global Variables
 app.use((req, res, next) => {
