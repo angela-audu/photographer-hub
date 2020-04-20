@@ -14,7 +14,7 @@
  
  
 .footer-distributed{
-	background-color: #2c292f;
+	background-color: #141411;
 	box-sizing: border-box;
 	width: 100%;
 	text-align: left;
@@ -22,6 +22,17 @@
 	padding: 50px 50px 60px 50px;
 	margin-top: 80px;
 }
+.fixed-header{
+        width: 100%;
+        position: fixed;        
+        background: #333;
+        padding: 10px 0;
+        color: #fff;
+    }
+    .fixed-header{
+        top: 0;
+
+    }
  
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,
@@ -192,6 +203,16 @@
     <title>Photographer's Hub</title>
 </head>
 <body>
+    <div class="fixed-header">
+        <div class="container">
+            <nav>
+                <a href="/">Home</a> &nbsp&nbsp
+                <a href="/users/register">Register</a>&nbsp&nbsp
+                <a href="/users/login">Login</a>&nbsp&nbsp
+                <a href="/contact">Contact Us</a>&nbsp&nbsp
+            </nav>
+        </div>
+    </div>
     <div class="container"> 
         
         <%- body %> 
