@@ -6,8 +6,13 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
+const { stringify } = require('querystring');
 const app = express();
+app.use(express.json());
+
   
+   
 //passport config
 require('./config/passport')(passport);
 
@@ -21,6 +26,7 @@ mongoose.connect(db, {useNewUrlParser: true })
 
 
 app.use(helmet());
+
 //EJS
 app.use(expressLayouts);
 
@@ -47,7 +53,7 @@ app.post("/contact",(req, res) => {
             res.send("your message has been sent");
         })
         .catch(err => {
-            res.status(400).send("Unable to save to database");
+            res.status(400).send("something went wrong");
         });
           
 
@@ -60,7 +66,7 @@ app.use(express.urlencoded({ extended: false}));
 app.use(session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 // passport middleware
 app.use(passport.initialize());

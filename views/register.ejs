@@ -1,4 +1,11 @@
-<div class="row mt-5">
+<html>
+  <head>
+    <title></title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  </head>
+  <body>
+    <div class="row mt-5">
     <div class="col-md-6 m-auto">
       <div class="card card-body">
         <h1 class="text-center mb-3">
@@ -14,7 +21,7 @@
               class="form-control"
               placeholder="Enter Name"
               value="<%= typeof name != 'undefined' ? name : '' %>"
-            /> 
+            /> <br/>
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -47,12 +54,18 @@
               placeholder="Confirm Password"
               value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
             />
+          </br>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">
-            Register
-          </button>
+          <input id= "register-btn" type="submit" class="btn btn-primary btn-block" value = "Register">
+            
         </form>
         <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
       </div>
     </div>
   </div>
+  
+  </body>
+  </html>
+  
+  
+

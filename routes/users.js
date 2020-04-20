@@ -24,7 +24,7 @@ router.post ('/register', (req, res) => {
 
    //Check Password match
    if(password !== password2) {
-       errors.push({ msg: 'Wrong password'});
+       errors.push({ msg: 'Password is not the same'});
    }
 
    //Check password length
