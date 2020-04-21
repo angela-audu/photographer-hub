@@ -10,7 +10,7 @@ module.exports = function(passport){
         new LocalStrategy({ usernameField: 'email'}, (email, password,done) => {
 
             //match user
-            User.findOne({email: email })
+            User.findOne({email:email })
             .then(user => {
                 if(!user) {
                     return done(null, false, { message: 'Login failed'});

@@ -79,10 +79,7 @@ if(password.length <6){
             })
             .catch(err => console.log(err));
         }))
-} 
-
-
-
+}
 
 });
 }
