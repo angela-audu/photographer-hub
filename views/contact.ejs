@@ -19,6 +19,9 @@ input[type=text], select, textarea {
   margin-bottom: 16px;
   resize: vertical;
 }
+#register-btn{
+    cursor:not-allowed;
+}
 
 input[type=submit] {
   background-color: #4CAF50;
@@ -61,12 +64,21 @@ input[type=submit]:hover {
     <label for="subject">Message</label>
     <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
 <br/>
-    <input id = "contact-btn" type="submit"class="btn btn-success" style="margin-left:38px" value="Submit">
+<div class="g-recaptcha" data-sitekey="6LesMeoUAAAAAFQZGmX1YcXrQorCS6r6usZ5p7uC" data-callback="recaptcha_callback"></div>
+<br/>
+    <input id = "contact-btn" type="submit"class="btn btn-success" style="margin-left:38px" value="Submit" disabled>
     
 
   </form>
 </div>
 
+<script> 
+  function recaptcha_callback()
+{
+  var contactBtn = document.querySelector('#contact-btn');
+  registerBtn.removeAttribute('disabled');
+  registerBtn.style.cursor = 'pointer';
+}  
 </script>
 </body>
 </html>
