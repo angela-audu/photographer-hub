@@ -36,7 +36,9 @@ app.set('view engine', 'ejs');
 
 mongoose.Promise = global.Promise;
 mongoose.connect
-var ContactSchema = new mongoose.Schema({
+var Schema = mongoose.Schema;
+
+var ContactSchema = new Schema({
     firstname: String,
     lastname: String,
     email2: String,
@@ -48,15 +50,18 @@ app.post("/contact",(req, res) => {
     var myData = new Contact(req.body);
     myData.save()
         .then(item => {
-            res.send("your message has been sent");
+            res.redirect('/');
         })
         .catch(err => {
-            res.status(400).send("something went wrong");
+            res.status(400)
+            res.redirect('/');
         });
           
 
           });
 
+
+          
 //Bodyparser
 app.use(express.urlencoded({ extended: false}));
 app.use(bodyParser.json());

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
-const ContactSchema = new mongoose.Schema({
+const SubjectSchema = new mongoose.Schema({
     fname: {
         type: String,
         required: true
     },
     lname: {
         type: String,
-    
+        required: true
     },
-
+    
     email2: {
         type: String,
         required: true
@@ -17,10 +17,10 @@ const ContactSchema = new mongoose.Schema({
     subject: {
         type: String,
         required: true
-    
     }
+    
 
 });
 
-const User = mongoose.model('User', ContactSchema);
-module.exports = Contact;
+const Subject = mongoose.model('Subject', SubjectSchema);
+module.exports = Subject;
