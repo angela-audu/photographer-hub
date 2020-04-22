@@ -13,7 +13,6 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 //Register page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
 
-router.get('/forgotpswd', forwardAuthenticated, (req, res)=> res.render('forgotpswd'));
 //Register Handle
 router.post ('/register', (req, res) => {
    const { name, email, password, password2} = req.body;
@@ -87,12 +86,16 @@ if(password.length <6){
 
 //login handle
 router.post('/login', (req, res, next) => {
-
+    req.session.email = req.body.email;
+	req.session.password = req.body.pass;
     passport.authenticate('local', {
         successRedirect: '/dashboard',
         failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);
+
+    
+
 });
 
 
@@ -101,6 +104,9 @@ router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/users/login');
+    req.session.destroy();    	
+
+		
 });
 module.exports = router;
 

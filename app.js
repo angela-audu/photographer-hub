@@ -12,7 +12,6 @@ const { stringify } = require('querystring');
 const app = express();
 app.use(express.json());
 
-  
    
 //passport config
 require('./config/passport')(passport);
@@ -31,8 +30,6 @@ app.use(helmet());
 //EJS
 app.use(expressLayouts);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
@@ -62,19 +59,22 @@ app.post("/contact",(req, res) => {
 
 //Bodyparser
 app.use(express.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express session
 app.use(session({
     secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
 }));
+ //Connect flash
+ app.use(flash());
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
- //Connect flash
-app.use(flash());
+
 
 //Global Variables
 app.use((req, res, next) => {

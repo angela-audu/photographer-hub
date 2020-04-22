@@ -1,7 +1,13 @@
 <html>
   <head>
     <title></title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+<style>
+  #register-btn{
+    cursor:not-allowed;
+}
+</style>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   </head>
   <body>
@@ -40,7 +46,7 @@
               id="password"
               name="password"
               class="form-control"
-              placeholder="Must contain at least one number, one uppercase and lowercase letter, and at least 6 or more characters"
+              placeholder="Must be at least 6 or more characters"
               value="<%= typeof password != 'undefined' ? password : '' %>"
             />
           </div>
@@ -53,17 +59,27 @@
               class="form-control"
               placeholder="Confirm Password"
               value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-            />
+            /> <br/>
+            <div class="g-recaptcha" data-sitekey="6LesMeoUAAAAAFQZGmX1YcXrQorCS6r6usZ5p7uC" data-callback="recaptcha_callback"></div>
+
           </br>
           </div>
-          <input id= "register-btn" type="submit" class="btn btn-primary btn-block" value = "Register">
+          <input id= "register-btn" type="submit" class="btn btn-primary btn-block" value = "Register" disabled>
             
         </form>
         <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
       </div>
     </div>
+    
   </div>
-  
+  <script> 
+    function recaptcha_callback()
+  {
+    var registerBtn = document.querySelector('#register-btn');
+    registerBtn.removeAttribute('disabled');
+    registerBtn.style.cursor = 'pointer';
+  }  
+  </script>
   </body>
   </html>
   
