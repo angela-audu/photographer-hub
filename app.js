@@ -35,7 +35,7 @@ app.set('view engine', 'ejs');
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect
+mongoose.connect(db, {useNewUrlParser: true })
 var Schema = mongoose.Schema;
 
 var ContactSchema = new Schema({
