@@ -31,7 +31,7 @@
     "helmet": "^3.22.0",
     "mongodb": "^3.5.6",
     "mongoose": "^5.9.6",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "validator": "^13.0.0"
